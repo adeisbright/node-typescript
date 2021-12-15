@@ -1,6 +1,6 @@
 
-import users , {Users} from "./item.model"; 
-import { User  , OrdinaryUser} from "./user.interface";
+import users from "./users.interface"; 
+import { User} from "./user.interface";
 
 
 

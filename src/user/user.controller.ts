@@ -1,5 +1,5 @@
 import { Request, Response , NextFunction } from "express";
-import users , {Users} from "./item.model"; 
+import users , {Users} from "./users.interface"; 
 import { User  , OrdinaryUser} from "./user.interface";
 import UserService from "./user.service"
 
