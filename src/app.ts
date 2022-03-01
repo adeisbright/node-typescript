@@ -7,6 +7,12 @@ import debug from "debug"
 import dotenv from "dotenv" 
 import {CommonRoutesConfig} from "./common/common.routes.config"
 import { UsersRoutes } from "./user/users.routes.config"
+import { AuthRoutes } from "./auth/auth.routes.config"
+import launchDB from "./loaders/mongoose-loader"
+dotenv.config();
+// if (dotenvResult.error) {
+//     throw dotenvResult.error;
+// }
 
 const app :express.Application = express() 
 const server : Server = createServer(app) 
@@ -40,9 +46,12 @@ app.use(expressWinston.logger(loggerOptions));
 // after sending the Express.js application object to have the routes added to our app!
 routes.push(new UsersRoutes(app));
 
+routes.push(new AuthRoutes(app))
 app.get( "/" , (req : express.Request , res : express.Response) => {
     res.status(200).json({message : "Good one"})
 })
+
+launchDB()
 
 server.listen(PORT , () => {
     routes.forEach((route : CommonRoutesConfig) => {

@@ -1,74 +1,81 @@
 import { CreateUserDto } from "../dto/create.user.dto"; 
 import { PatchUserDto } from "../dto/patch.user.dto"; 
 import { PutUserDto } from "../dto/put.user.dto"; 
+import MongooseService from "../../common/mongoose.service";
+
 
 class UsersDao {
-    users : Array<CreateUserDto> = [];
+    Schema = MongooseService.getMongoose().Schema;
+
+    userSchema = new this.Schema({
+        _id: String,
+        email: String,
+        password: { type: String, select: false },
+        firstName: String,
+        lastName: String,
+        permissionFlags: Number,
+    }, { id: false });
+
+    User = MongooseService.getMongoose().model('Users', this.userSchema);
     constructor(){
         console.log("A new Instance")
     }
 
-    async addUser(user: CreateUserDto) : Promise<CreateUserDto> {
-        user.id = String(new Date().valueOf());
-        this.users.push(user);
-        return user;
-    }
-
-    async getUsers() :  Promise<CreateUserDto []> {
-        return this.users;
-    }
-    
-    async getUserById(userId: string)  : Promise<CreateUserDto | undefined> {
-        return this.users.find((user: { id: string }) => user.id === userId);
-    }
-
-    async putUserById(userId: string, user: PutUserDto) {
-        const objIndex = this.users.findIndex(
-            (obj: { id: string }) => obj.id === userId
-        );
-        this.users.splice(objIndex, 1, user);
-        return `${user.id} updated via put`;
-    }
-    
-    async patchUserById(userId: string, user: PatchUserDto) {
-        const objIndex = this.users.findIndex(
-            (obj: { id: string }) => obj.id === userId
-        );
-        let currentUser = this.users[objIndex];
-        const allowedPatchFields = [
-            'password',
-            'firstName',
-            'lastName',
-            'permissionLevel',
-        ];
-        for (let field of allowedPatchFields) {
-            if (field in user) {
-                // @ts-ignore
-                currentUser[field] = user[field];
-            }
-        }
-        this.users.splice(objIndex, 1, currentUser);
-        return `${user.id} patched`;
-    }
-
-    async removeUserById(userId: string) {
-        const objIndex = this.users.findIndex(
-            (obj: { id: string }) => obj.id === userId
-        );
-        this.users.splice(objIndex, 1);
-        return `${userId} removed`;
+    async addUser(userFields: CreateUserDto) {
+        const userId = String(new Date().valueOf());
+        const user = await  this.User.create({
+            _id: userId,
+           
+            permissionFlags: 1,
+            ...userFields
+        });
+       
+        return userId;
     }
 
     async getUserByEmail(email: string) {
-        const objIndex = this.users.findIndex(
-            (obj: { email: string }) => obj.email === email
+        return await this.User.findOne({ email: email });
+    }
+    
+    async getUserById(userId: string) {
+        return await this.User.findOne({ _id: userId });
+    }
+    
+    async getUsers(limit = 25, page = 0) {
+        return await this.User.find()
+            .skip(limit * page)
+            .limit(limit)
+            
+    }
+
+    async removeUserById(userId: string) {
+        return await this.User.deleteOne({ _id: userId });
+    }
+
+    async updateUserById(
+        userId: string,
+        userFields: PatchUserDto | PutUserDto
+    ) {
+        const existingUser = await this.User.findOneAndUpdate(
+            { _id: userId },
+            { $set: userFields },
+            { new: true  , useFindAndModify:false}
         );
-        let currentUser = this.users[objIndex];
-        if (currentUser) {
-            return currentUser;
-        } else {
-            return null;
-        }
+    
+        return existingUser;
+    }
+    async getUserByEmailWithPassword(email: string) {
+        return await this.User.findOne({ email: email })
+            .select('_id email permissionFlags +password')
+            
+    }
+
+    async getUserUsingEmail(email : string){
+        const user = await this.User.findOne({email : email})
+        .select('_id email permissionFlags +passowrd')
+
+        console.log(user)
+        return user
     }
 }
 

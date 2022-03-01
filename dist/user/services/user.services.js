@@ -67,7 +67,7 @@ var UsersService = /** @class */ (function () {
     UsersService.prototype.patchById = function (id, resource) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, users_daos_1.default.patchUserById(id, resource)];
+                return [2 /*return*/, users_daos_1.default.updateUserById(id, resource)];
             });
         });
     };
@@ -81,7 +81,7 @@ var UsersService = /** @class */ (function () {
     UsersService.prototype.putById = function (id, resource) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, users_daos_1.default.putUserById(id, resource)];
+                return [2 /*return*/, users_daos_1.default.updateUserById(id, resource)];
             });
         });
     };
@@ -92,7 +92,14 @@ var UsersService = /** @class */ (function () {
             });
         });
     };
+    UsersService.prototype.getUserByEmailWithPassword = function (email) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, users_daos_1.default.getUserByEmailWithPassword(email)];
+            });
+        });
+    };
     return UsersService;
 }());
 exports.default = new UsersService();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlci5zZXJ2aWNlcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy91c2VyL3NlcnZpY2VzL3VzZXIuc2VydmljZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxrRUFBMEM7QUFNMUM7SUFBQTtJQTRCQSxDQUFDO0lBM0JTLDZCQUFNLEdBQVosVUFBYSxRQUF1Qjs7O2dCQUNoQyxzQkFBTyxvQkFBUSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsRUFBQzs7O0tBQ3JDO0lBRUssaUNBQVUsR0FBaEIsVUFBaUIsRUFBVTs7O2dCQUN2QixzQkFBTyxvQkFBUSxDQUFDLGNBQWMsQ0FBQyxFQUFFLENBQUMsRUFBQzs7O0tBQ3RDO0lBRUssMkJBQUksR0FBVixVQUFXLEtBQWMsRUFBRSxJQUFhOzs7Z0JBQ3BDLHNCQUFPLG9CQUFRLENBQUMsUUFBUSxFQUFFLEVBQUM7OztLQUM5QjtJQUVLLGdDQUFTLEdBQWYsVUFBZ0IsRUFBVSxFQUFFLFFBQXNCOzs7Z0JBQzlDLHNCQUFPLG9CQUFRLENBQUMsYUFBYSxDQUFDLEVBQUUsRUFBRSxRQUFRLENBQUMsRUFBQzs7O0tBQy9DO0lBRUssK0JBQVEsR0FBZCxVQUFlLEVBQVU7OztnQkFDckIsc0JBQU8sb0JBQVEsQ0FBQyxXQUFXLENBQUMsRUFBRSxDQUFDLEVBQUM7OztLQUNuQztJQUVLLDhCQUFPLEdBQWIsVUFBYyxFQUFVLEVBQUUsUUFBb0I7OztnQkFDMUMsc0JBQU8sb0JBQVEsQ0FBQyxXQUFXLENBQUMsRUFBRSxFQUFFLFFBQVEsQ0FBQyxFQUFDOzs7S0FDN0M7SUFFSyxxQ0FBYyxHQUFwQixVQUFxQixLQUFhOzs7Z0JBQzlCLHNCQUFPLG9CQUFRLENBQUMsY0FBYyxDQUFDLEtBQUssQ0FBQyxFQUFDOzs7S0FDekM7SUFDTCxtQkFBQztBQUFELENBQUMsQUE1QkQsSUE0QkM7QUFFRCxrQkFBZSxJQUFJLFlBQVksRUFBRSxDQUFDIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlci5zZXJ2aWNlcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy91c2VyL3NlcnZpY2VzL3VzZXIuc2VydmljZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxrRUFBMEM7QUFRMUM7SUFBQTtJQWdDQSxDQUFDO0lBL0JTLDZCQUFNLEdBQVosVUFBYSxRQUF1Qjs7O2dCQUNoQyxzQkFBTyxvQkFBUSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsRUFBQzs7O0tBQ3JDO0lBRUssaUNBQVUsR0FBaEIsVUFBaUIsRUFBVTs7O2dCQUN2QixzQkFBTyxvQkFBUSxDQUFDLGNBQWMsQ0FBQyxFQUFFLENBQUMsRUFBQzs7O0tBQ3RDO0lBRUssMkJBQUksR0FBVixVQUFXLEtBQWMsRUFBRSxJQUFhOzs7Z0JBQ3BDLHNCQUFPLG9CQUFRLENBQUMsUUFBUSxFQUFFLEVBQUM7OztLQUM5QjtJQUVLLGdDQUFTLEdBQWYsVUFBZ0IsRUFBVSxFQUFFLFFBQXNCOzs7Z0JBQzlDLHNCQUFPLG9CQUFRLENBQUMsY0FBYyxDQUFDLEVBQUUsRUFBRSxRQUFRLENBQUMsRUFBQzs7O0tBQ2hEO0lBRUssK0JBQVEsR0FBZCxVQUFlLEVBQVU7OztnQkFDckIsc0JBQU8sb0JBQVEsQ0FBQyxXQUFXLENBQUMsRUFBRSxDQUFDLEVBQUM7OztLQUNuQztJQUVLLDhCQUFPLEdBQWIsVUFBYyxFQUFVLEVBQUUsUUFBb0I7OztnQkFDMUMsc0JBQU8sb0JBQVEsQ0FBQyxjQUFjLENBQUMsRUFBRSxFQUFFLFFBQVEsQ0FBQyxFQUFDOzs7S0FDaEQ7SUFFSyxxQ0FBYyxHQUFwQixVQUFxQixLQUFhOzs7Z0JBQzlCLHNCQUFPLG9CQUFRLENBQUMsY0FBYyxDQUFDLEtBQUssQ0FBQyxFQUFDOzs7S0FDekM7SUFFSyxpREFBMEIsR0FBaEMsVUFBaUMsS0FBYTs7O2dCQUMxQyxzQkFBTyxvQkFBUSxDQUFDLDBCQUEwQixDQUFDLEtBQUssQ0FBQyxFQUFDOzs7S0FDckQ7SUFDTCxtQkFBQztBQUFELENBQUMsQUFoQ0QsSUFnQ0M7QUFFRCxrQkFBZSxJQUFJLFlBQVksRUFBRSxDQUFDIn0=
